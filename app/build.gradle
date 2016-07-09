@@ -1,0 +1,136 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.squareup.sqldelight'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.0"
+
+    defaultConfig {
+        applicationId "me.bitfrom.bashim"
+        minSdkVersion 21
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dexOptions {
+        incremental true
+        maxProcessCount 4
+        javaMaxHeapSize "4g"
+    }
+
+    lintOptions {
+        warningsAsErrors true
+        abortOnError false
+
+        disable 'GoogleAppIndexingWarning' // App does not have deep linking.
+        disable 'InvalidPackage' // Okio references java.nio that does not presented in Android SDK.
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    final supportLibsVer = '24.0.0'
+    final multiDexVer = '1.0.1'
+    final junitVer = '4.12'
+
+    //Dagger
+    final daggerVer = '2.4'
+    final javaxVer = '10.0-b28'
+    final javaPoet = '1.7.0'
+
+    //RxJava
+    final rxJavaVer = '1.1.5'
+    final rxAndroidVer = '1.2.0'
+
+    //Rest
+    final okHttpVer = '3.3.1'
+    final retrofitVer = '2.1.0'
+    final gsonVer = '2.6.2'
+
+    //Database
+    final sqlBriteVer = '0.6.3'
+    final autoValueParVer = '0.2.3-rc2'
+
+    //Image-side
+    final glideVer = '3.7.0'
+    final glideOkHttpIntegration = '1.4.0@aar'
+
+    //UI
+    final butterKnifeVer = '8.0.1'
+    final appIntroVer = '4.0.0'
+
+    //Other
+    final permissionsDispatcherVer = '2.1.3'
+    final eventBusVer = '3.0.0'
+
+    //Developer
+    final stethoVer = '1.3.1'
+    final leakCanaryVer = '1.4-beta2'
+    final timberVer = '4.1.2'
+
+    compile "com.android.support:appcompat-v7:$supportLibsVer"
+    compile "com.android.support:support-v4:$supportLibsVer"
+    compile "com.android.support:support-v13:$supportLibsVer"
+    compile "com.android.support:support-annotations:$supportLibsVer"
+    compile "com.android.support:recyclerview-v7:$supportLibsVer"
+    compile "com.android.support:cardview-v7:$supportLibsVer"
+    compile "com.android.support:design:$supportLibsVer"
+    compile "com.android.support:multidex:$multiDexVer"
+
+    apt "com.squareup:javapoet:$javaPoet"
+    compile "com.google.dagger:dagger:$daggerVer"
+    provided "org.glassfish:javax.annotation:$javaxVer"
+    apt "com.google.dagger:dagger-compiler:$daggerVer"
+
+    compile "io.reactivex:rxjava:$rxJavaVer"
+    compile "io.reactivex:rxandroid:$rxAndroidVer"
+
+    compile "com.squareup.okhttp3:okhttp:$okHttpVer"
+    compile "com.squareup.okhttp3:logging-interceptor:$okHttpVer"
+    compile "com.squareup.retrofit2:retrofit:$retrofitVer"
+    compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVer"
+    compile "com.squareup.retrofit2:converter-gson:$retrofitVer"
+    compile "com.google.code.gson:gson:$gsonVer"
+
+    compile "com.squareup.sqlbrite:sqlbrite:$sqlBriteVer"
+    apt "com.ryanharter.auto.value:auto-value-parcel:$autoValueParVer"
+    provided "com.ryanharter.auto.value:auto-value-parcel:$autoValueParVer"
+    apt 'com.squareup:javapoet:1.7.0'
+
+    compile "com.github.bumptech.glide:glide:$glideVer"
+    compile "com.github.bumptech.glide:okhttp-integration:$glideOkHttpIntegration"
+
+    compile "com.jakewharton:butterknife:$butterKnifeVer"
+    apt "com.jakewharton:butterknife-compiler:$butterKnifeVer"
+    compile "com.github.paolorotolo:appintro:$appIntroVer"
+
+    compile "com.github.hotchemi:permissionsdispatcher:$permissionsDispatcherVer"
+    apt "com.github.hotchemi:permissionsdispatcher-processor:$permissionsDispatcherVer"
+    compile "org.greenrobot:eventbus:$eventBusVer"
+
+    compile "com.facebook.stetho:stetho:$stethoVer"
+    compile "com.facebook.stetho:stetho-okhttp3:$stethoVer"
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVer"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVer"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVer"
+    compile "com.jakewharton.timber:timber:$timberVer"
+
+    testCompile "junit:junit:$junitVer"
+
+}

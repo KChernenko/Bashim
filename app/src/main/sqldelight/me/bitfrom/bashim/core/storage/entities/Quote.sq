@@ -1,0 +1,8 @@
+CREATE TABLE quotes(
+    _id INTEGER AS Integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+    link TEXT NOT NULL UNIQUE,
+    content TEXT NOT NULL
+);
+
+select_all:
+SELECT * FROM quotes;
